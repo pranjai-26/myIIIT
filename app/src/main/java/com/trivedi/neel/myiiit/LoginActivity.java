@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     static String username, pswd;
     TextView username_err, pswd_err;
     ProgressBar login_prog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
                     view = new View(LoginActivity.this);
                 }
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                username_box.clearFocus();
+                pswd_box.clearFocus();
 
                 if (username.equals("")) {
                     username_err.setVisibility(View.VISIBLE);
@@ -99,9 +103,6 @@ public class LoginActivity extends AppCompatActivity {
 
             if (loginSuccessful.isError()) {
                 Network.removeCredentials(LoginActivity.this);
-
-                username_box.clearFocus();
-                pswd_box.clearFocus();
 
                 String err_msg;
                 if(loginSuccessful.getError() instanceof AuthenticationException) {
